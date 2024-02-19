@@ -36,3 +36,22 @@ model Tag {
   name  String @default("")
   posts Post[] @relation("Post_tags")
 }
+
+model Form {
+  id            String     @id @default(uuid()) @postgresql.Uuid
+  first_name    String     @default("")
+  last_name     String     @default("")
+  mobile_number String     @unique @default("")
+  email         String     @unique @default("")
+  roles         FormRole[] @relation("Form_roles")
+
+  @@map("submitted_forms")
+}
+
+model FormRole {
+  id    String @id @default(uuid()) @postgresql.Uuid
+  forms Form[] @relation("Form_roles")
+  role  String @default("")
+
+  @@map("submitted_form_roles")
+}

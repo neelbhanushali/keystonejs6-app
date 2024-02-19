@@ -26,6 +26,9 @@ import { document } from '@keystone-6/fields-document';
 // the generated types from '.keystone/types'
 import type { Lists } from '.keystone/types';
 
+import Form from './form.schema'
+import FormRole from './form-role.schema'
+
 export const lists: Lists = {
   User: list({
     // WARNING
@@ -146,4 +149,7 @@ export const lists: Lists = {
       posts: relationship({ ref: 'Post.tags', many: true }),
     },
   }),
+
+  Form,
+  FormRole
 };

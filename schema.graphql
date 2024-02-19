@@ -260,6 +260,113 @@ input TagCreateInput {
   posts: PostRelateToManyForCreateInput
 }
 
+type Form {
+  id: ID!
+  first_name: String
+  last_name: String
+  mobile_number: String
+  email: String
+  roles(where: FormRoleWhereInput! = {}, orderBy: [FormRoleOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: FormRoleWhereUniqueInput): [FormRole!]
+  rolesCount(where: FormRoleWhereInput! = {}): Int
+}
+
+input FormWhereUniqueInput {
+  id: ID
+}
+
+input FormWhereInput {
+  AND: [FormWhereInput!]
+  OR: [FormWhereInput!]
+  NOT: [FormWhereInput!]
+  id: IDFilter
+}
+
+input FormOrderByInput {
+  id: OrderDirection
+}
+
+input FormUpdateInput {
+  first_name: String
+  last_name: String
+  mobile_number: String
+  email: String
+  roles: FormRoleRelateToManyForUpdateInput
+}
+
+input FormRoleRelateToManyForUpdateInput {
+  disconnect: [FormRoleWhereUniqueInput!]
+  set: [FormRoleWhereUniqueInput!]
+  create: [FormRoleCreateInput!]
+  connect: [FormRoleWhereUniqueInput!]
+}
+
+input FormUpdateArgs {
+  where: FormWhereUniqueInput!
+  data: FormUpdateInput!
+}
+
+input FormCreateInput {
+  first_name: String
+  last_name: String
+  mobile_number: String
+  email: String
+  roles: FormRoleRelateToManyForCreateInput
+}
+
+input FormRoleRelateToManyForCreateInput {
+  create: [FormRoleCreateInput!]
+  connect: [FormRoleWhereUniqueInput!]
+}
+
+type FormRole {
+  id: ID!
+  forms(where: FormWhereInput! = {}, orderBy: [FormOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: FormWhereUniqueInput): [Form!]
+  formsCount(where: FormWhereInput! = {}): Int
+  role: String
+}
+
+input FormRoleWhereUniqueInput {
+  id: ID
+}
+
+input FormRoleWhereInput {
+  AND: [FormRoleWhereInput!]
+  OR: [FormRoleWhereInput!]
+  NOT: [FormRoleWhereInput!]
+  id: IDFilter
+}
+
+input FormRoleOrderByInput {
+  id: OrderDirection
+}
+
+input FormRoleUpdateInput {
+  forms: FormRelateToManyForUpdateInput
+  role: String
+}
+
+input FormRelateToManyForUpdateInput {
+  disconnect: [FormWhereUniqueInput!]
+  set: [FormWhereUniqueInput!]
+  create: [FormCreateInput!]
+  connect: [FormWhereUniqueInput!]
+}
+
+input FormRoleUpdateArgs {
+  where: FormRoleWhereUniqueInput!
+  data: FormRoleUpdateInput!
+}
+
+input FormRoleCreateInput {
+  forms: FormRelateToManyForCreateInput
+  role: String
+}
+
+input FormRelateToManyForCreateInput {
+  create: [FormCreateInput!]
+  connect: [FormWhereUniqueInput!]
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -284,6 +391,18 @@ type Mutation {
   updateTags(data: [TagUpdateArgs!]!): [Tag]
   deleteTag(where: TagWhereUniqueInput!): Tag
   deleteTags(where: [TagWhereUniqueInput!]!): [Tag]
+  createForm(data: FormCreateInput!): Form
+  createForms(data: [FormCreateInput!]!): [Form]
+  updateForm(where: FormWhereUniqueInput!, data: FormUpdateInput!): Form
+  updateForms(data: [FormUpdateArgs!]!): [Form]
+  deleteForm(where: FormWhereUniqueInput!): Form
+  deleteForms(where: [FormWhereUniqueInput!]!): [Form]
+  createFormRole(data: FormRoleCreateInput!): FormRole
+  createFormRoles(data: [FormRoleCreateInput!]!): [FormRole]
+  updateFormRole(where: FormRoleWhereUniqueInput!, data: FormRoleUpdateInput!): FormRole
+  updateFormRoles(data: [FormRoleUpdateArgs!]!): [FormRole]
+  deleteFormRole(where: FormRoleWhereUniqueInput!): FormRole
+  deleteFormRoles(where: [FormRoleWhereUniqueInput!]!): [FormRole]
   endSession: Boolean!
   authenticateUserWithPassword(email: String!, password: String!): UserAuthenticationWithPasswordResult
   createInitialUser(data: CreateInitialUserInput!): UserAuthenticationWithPasswordSuccess!
@@ -316,6 +435,12 @@ type Query {
   tags(where: TagWhereInput! = {}, orderBy: [TagOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: TagWhereUniqueInput): [Tag!]
   tag(where: TagWhereUniqueInput!): Tag
   tagsCount(where: TagWhereInput! = {}): Int
+  forms(where: FormWhereInput! = {}, orderBy: [FormOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: FormWhereUniqueInput): [Form!]
+  form(where: FormWhereUniqueInput!): Form
+  formsCount(where: FormWhereInput! = {}): Int
+  formRoles(where: FormRoleWhereInput! = {}, orderBy: [FormRoleOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: FormRoleWhereUniqueInput): [FormRole!]
+  formRole(where: FormRoleWhereUniqueInput!): FormRole
+  formRolesCount(where: FormRoleWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }
